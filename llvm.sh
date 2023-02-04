@@ -1,7 +1,7 @@
 BUILD_SYSTEM=Ninja
 BUILD_TAG=ninja
 
-curl -o llvm-project-14.0.6.src.tar.xz https://github.com/llvm/llvm-project/releases/download/llvmorg-14.0.6/llvm-project-14.0.6.src.tar.xz
+curl -L -o llvm-project-14.0.6.src.tar.xz https://github.com/llvm/llvm-project/releases/download/llvmorg-14.0.6/llvm-project-14.0.6.src.tar.xz
 
 tar -xzvf llvm-project-14.0.6.src.tar.xz
 

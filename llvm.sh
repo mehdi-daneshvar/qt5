@@ -9,7 +9,7 @@ mkdir llvm-build
 mkdir -p llvm-install/software/llvm-14
 ls -alh
 
-llvm-14-dir=llvm-install/software/llvm-14
+llvm-14-dir=$PWD/llvm-install/software/llvm-14
 
 cd llvm-build
 

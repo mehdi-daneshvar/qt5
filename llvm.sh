@@ -56,4 +56,5 @@ cmake ../llvm-project/llvm \
   -DCMAKE_LINKER=ld \
   -DRUNTIMES_CMAKE_ARGS="-DCMAKE_INSTALL_RPATH=$llvm-14-dir -DCMAKE_LINKER=ld" \
   -DBUILTINS_CMAKE_ARGS=" -DCMAKE_LINKER=ld" \
+  -DCMAKE_OSX_SYSROOT=$(xcrun -sdk macosx --show-sdk-path) \
   -Wno-dev

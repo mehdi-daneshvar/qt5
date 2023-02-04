@@ -5,6 +5,8 @@ curl -L -o llvm-project-14.0.6.src.tar.xz https://github.com/llvm/llvm-project/r
 
 tar -xzf llvm-project-14.0.6.src.tar.xz
 
+mv llvm-project-14.0.6.src
+
 mkdir llvm-build
 mkdir -p llvm-install/software/llvm-14
 
@@ -17,6 +19,8 @@ ls -alh ${PWD}/llvm-install/software/llvm-14
 llvm-14-dir="${PWD}/llvm-install/software/llvm-14"
 
 cd llvm-build
+
+echo $PWD
 
 cmake ../llvm-project/llvm \
   -G$BUILD_SYSTEM -B ${BUILD_TAG}_build \

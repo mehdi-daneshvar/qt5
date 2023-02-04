@@ -3,7 +3,7 @@ BUILD_TAG=ninja
 
 curl -L -o llvm-project-14.0.6.src.tar.xz https://github.com/llvm/llvm-project/releases/download/llvmorg-14.0.6/llvm-project-14.0.6.src.tar.xz
 
-tar -xzvf llvm-project-14.0.6.src.tar.xz
+tar -xzf llvm-project-14.0.6.src.tar.xz
 
 mkdir llvm-build
 mkdir -p llvm-install/software/llvm-14

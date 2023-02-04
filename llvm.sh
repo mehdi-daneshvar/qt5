@@ -24,7 +24,7 @@ echo $PWD
 
 cmake ../llvm-project/llvm \
   -G$BUILD_SYSTEM -B ${BUILD_TAG}_build \
-  -DCMAKE_MAKE_PROGRAM=$BUILD_SYSTEM
+  -DCMAKE_MAKE_PROGRAM=$BUILD_SYSTEM \
   -DCMAKE_C_COMPILER=$(xcrun -f clang) \
   -DCMAKE_CXX_COMPILER=$(xcrun -f clang++) \
   -DCMAKE_ASM_COMPILER=$(xcrun -f as) \

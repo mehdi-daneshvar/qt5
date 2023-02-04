@@ -24,6 +24,10 @@ echo $PWD
 
 cmake ../llvm-project/llvm \
   -G$BUILD_SYSTEM -B ${BUILD_TAG}_build \
+  -DCMAKE_MAKE_PROGRAM=$BUILD_SYSTEM
+  -DCMAKE_C_COMPILER=$(xcrun -f clang) \
+  -DCMAKE_CXX_COMPILER=$(xcrun -f clang++) \
+  -DCMAKE_ASM_COMPILER=$(xcrun -f as) \
   -DCMAKE_OSX_ARCHITECTURES="x86_64;arm64" \
   -DCMAKE_BUILD_TYPE=Release \
   -DCMAKE_BUILD_WITH_INSTALL_RPATH=1 \

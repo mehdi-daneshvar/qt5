@@ -7,9 +7,14 @@ tar -xzvf llvm-project-14.0.6.src.tar.xz
 
 mkdir llvm-build
 mkdir -p llvm-install/software/llvm-14
-ls -alh
 
-llvm-14-dir=$PWD/llvm-install/software/llvm-14
+ls -alh .
+ls -alh ${PWD}/llvm-install/
+ls -alh ${PWD}/llvm-install/software/
+ls -alh ${PWD}/llvm-install/software/llvm-14
+
+
+llvm-14-dir="${PWD}/llvm-install/software/llvm-14"
 
 cd llvm-build
 

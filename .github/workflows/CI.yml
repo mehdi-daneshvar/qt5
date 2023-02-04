@@ -42,7 +42,10 @@ jobs:
           mv llvm-project-14.0.6.src llvm-project
           mkdir llvm-build
           mkdir -p llvm-install/software/llvm-14
-      
+      - name: Runner INFO
+        run: |
+          top -l 1 -s 0 | grep PhysMem | sed 's/, /\n         /g'
+          sysctl -a | grep machdep.cpu
       - name: Install ninja
         run: brew install ninja
 

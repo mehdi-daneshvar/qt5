@@ -25,11 +25,30 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
       
+      - uses: actions/cache@v3
+        id: cache
+        with:
+          path: |
+            llvm-project
+            llvm-build
+            llvm-install
+          key: ${{ runner.os }}-${{ hashFiles('llvm.sh') }}
+
+      - name: Download llvm
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: |
+          curl -L -o llvm-project-14.0.6.src.tar.xz https://github.com/llvm/llvm-project/releases/download/llvmorg-14.0.6/llvm-project-14.0.6.src.tar.xz
+          tar -xzf llvm-project-14.0.6.src.tar.xz
+          mv llvm-project-14.0.6.src llvm-project
+          mkdir llvm-build
+          mkdir -p llvm-install/software/llvm-14
+      
       - name: Install ninja
         run: brew install ninja
 
       # Runs a single command using the runners shell
       - name: Compile LLVM-14-init
+        if: steps.cache.outputs.cache-hit != 'true'
         run: sh llvm.sh
 
       # Runs a set of commands using the runners shell
@@ -42,3 +61,10 @@ jobs:
         run: |
           cd llvm-build/ninja_build
           cmake --install .
+          
+      - name: Archive llvm artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: llvm-14
+          path: |
+            llvm-install

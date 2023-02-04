@@ -5,16 +5,23 @@ curl -o llvm-project-14.0.6.src.tar.xz https://github.com/llvm/llvm-project/rele
 
 tar -xzvf llvm-project-14.0.6.src.tar.xz
 
+mkdir llvm-build
+mkdir -p llvm-install/software/llvm-14
+
+llvm-14-dir=llvm-install/software/llvm-14
+
+cd llvm-build
+
 cmake ../llvm-project/llvm \
   -G$BUILD_SYSTEM -B ${BUILD_TAG}_build \
   -DCMAKE_OSX_ARCHITECTURES="x86_64;arm64" \
   -DCMAKE_BUILD_TYPE=Release \
   -DCMAKE_BUILD_WITH_INSTALL_RPATH=1 \
-  -DCMAKE_INSTALL_PREFIX=/Users/mehdidaneshvar/software/llvm-14 \
-  -DLLVM_LOCAL_RPATH=/Users/mehdidaneshvar/software/llvm-14/lib \
+  -DCMAKE_INSTALL_PREFIX=$llvm-14-dir \
+  -DLLVM_LOCAL_RPATH=$llvm-14-dir/lib \
   -DLLVM_ENABLE_WERROR=FALSE \
   -DLLVM_DEFAULT_TARGET_TRIPLE="arm64-apple-darwin22.3.0" \
-  -DLLVM_ENABLE_PROJECTS="clang;clang-tools-extra;lld;mlir;polly" \
+  -DLLVM_ENABLE_PROJECTS="clang;clang-tools-extra;lld;lldb;mlir;polly" \
   -DLLVM_ENABLE_RUNTIMES="compiler-rt;libcxx;libcxxabi;libunwind;openmp" \
   -DLLVM_POLLY_LINK_INTO_TOOLS=ON \
   -DLLVM_BUILD_EXTERNAL_COMPILER_RT=ON \
@@ -38,15 +45,15 @@ cmake ../llvm-project/llvm \
   -DPACKAGE_VENDOR=Mehdi \
   -DBUG_REPORT_URL=https://lashar.net \
   -DCLANG_VENDOR_UTI=org.https://lashar.net \
-  -DFFI_INCLUDE_DIR=/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.1.sdk/usr/include/ffi \
-  -DFFI_LIBRARY_DIR=/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.1.sdk/usr/lib \
+  -DFFI_INCLUDE_DIR=$(xcrun -sdk macosx --show-sdk-path)/usr/include/ffi \
+  -DFFI_LIBRARY_DIR=$(xcrun -sdk macosx --show-sdk-path)/usr/lib \
   -DLLVM_BUILD_LLVM_C_DYLIB=ON \
   -DLLVM_ENABLE_LIBCXX=ON \
-  -DLIBCXX_INSTALL_LIBRARY_DIR=/Users/mehdidaneshvar/software/llvm-14/lib/c++ \
-  -DLIBCXXABI_INSTALL_LIBRARY_DIR=/Users/mehdidaneshvar/software/llvm-14/lib/c++ \
-  -DDEFAULT_SYSROOT=/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.1.sdk \
+  -DLIBCXX_INSTALL_LIBRARY_DIR=$llvm-14-dir/lib/c++ \
+  -DLIBCXXABI_INSTALL_LIBRARY_DIR=$llvm-14-dir/lib/c++ \
+  -DDEFAULT_SYSROOT=$(xcrun -sdk macosx --show-sdk-path) \
   -DLLVM_USE_LINKER=ld \
   -DCMAKE_LINKER=ld \
-  -DRUNTIMES_CMAKE_ARGS="-DCMAKE_INSTALL_RPATH=/Users/mehdidaneshvar/software/llvm-14 -DCMAKE_LINKER=ld" \
+  -DRUNTIMES_CMAKE_ARGS="-DCMAKE_INSTALL_RPATH=$llvm-14-dir -DCMAKE_LINKER=ld" \
   -DBUILTINS_CMAKE_ARGS=" -DCMAKE_LINKER=ld" \
   -Wno-dev
